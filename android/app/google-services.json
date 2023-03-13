@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "126485160983",
+    "project_id": "fir-redux-fe9ae",
+    "storage_bucket": "fir-redux-fe9ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126485160983:android:e24a8d2e84d6c200fae852",
+        "android_client_info": {
+          "package_name": "com.testdemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126485160983-foiqbjnl08l97q661ifcv780jp8r597o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.testdemo",
+            "certificate_hash": "656355c1aa4393a99e9582d2914555e40c8d2244"
+          }
+        },
+        {
+          "client_id": "126485160983-5ab12s2bgrql3ihd5ldpuoqmh1vaohj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy7ZpThT3R2CSQIfoveMaV5z-qyt4mvrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126485160983-5ab12s2bgrql3ihd5ldpuoqmh1vaohj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

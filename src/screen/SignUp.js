@@ -12,17 +12,17 @@ import {
   View,
 } from "react-native";
 import React, { createRef, useState } from "react";
-//import auth from "@react-native-firebase/auth";
+import { useDispatch } from "react-redux";
+import { signupAction } from "../redux/actions/LoginActions";
 
 const SignUp = ({ navigation }) => {
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("abc@123");
   const [errorText, setErrorText] = useState("");
-
-  const [phone, setPhone] = useState();
-  const [otp, setOtp] = useState();
-  const [confirm, setConfirm] = useState(null);
+  const Dispatch = useDispatch();
+  const newUserEmail = {
+    username: "priyanka",
+    password: "123456",
+    email: "priyanka@panchal.in",
+  };
 
   const emailInputRef = createRef();
   const passwordInputRef = createRef();
@@ -30,62 +30,12 @@ const SignUp = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  // const signupPhone = async () => {
-  //   const conf = await auth().signInWithPhoneNumber(phone);
-  //   setConfirm(conf);
-  // };
-  // const verifynum = async () => {
-  //   try {
-  //     await confirm.confirm(otp);
-  //     Alert.alert("Verified!");
-  //     navigation.navigate("Home");
-  //     auth()
-  //       .currentUser.updateProfile({
-  //         displayName: username,
-  //       })
-  //       .then(() => navigation.replace("Home"))
-  //       .catch((err) => {
-  //         Alert.alert(err);
-  //         console.log("ERROR ==> ", err);
-  //       });
-  //   } catch (error) {
-  //     console.log("Invalid code.", error);
-  //     Alert.alert("ERROR ", error);
-  //   }
-  // };
-
-  // const signUpOnpress = async () => {
-  //   if (!username) return Alert.alert("Enter User Name", username);
-  //   if (!password) return Alert.alert("Enter Password", password);
-  //   if (!email) return Alert.alert("Enter Email", email);
-
-  //   auth()
-  //     .createUserWithEmailAndPassword(email, password)
-  //     .then((user) => {
-  //       console.log("Registration Success...!");
-  //       console.log(user);
-  //       if (user) {
-  //         auth()
-  //           .currentUser.updateProfile({
-  //             displayName: username,
-  //             photoURL: require("../icons/clock.png"),
-  //           })
-  //           .then(() => navigation.replace("Home"))
-  //           .catch((err) => {
-  //             Alert.alert(err);
-  //             console.log("ERROR ==> ", err);
-  //           });
-  //       }
-  //     })
-  //     .catch((e) => {
-  //       console.log("ERROR SIGNUP ==> ", e);
-  //       if (e.code === "auth/email-already-in-use") {
-  //         setErrorText("Email is Already in Use.!");
-  //       } else {
-  //         setErrorText(e.message);
-  //       }
-  //     });
-  // };
+  const signupOnPress = async () => {
+    if (!newUserEmail.username) return Alert.alert("Enter User Name");
+    if (!newUserEmail.password) return Alert.alert("Enter Password");
+    if (!newUserEmail.email) return Alert.alert("Enter Email");
+    Dispatch(signupAction(newUserEmail));
+  };
 
   return (
     <SafeAreaView style={styles.maincontainer}>
@@ -110,7 +60,8 @@ const SignUp = ({ navigation }) => {
               emailInputRef.current && emailInputRef.current.focus()
             }
             blurOnSubmit={false}
-            onChangeText={(t) => setUserName(t)}
+            onChangeText={(t) => (newUserEmail.username = t)}
+            defaultValue={newUserEmail.username}
           />
           <View
             style={{
@@ -172,7 +123,8 @@ const SignUp = ({ navigation }) => {
                   passwordInputRef.current && passwordInputRef.current.focus()
                 }
                 blurOnSubmit={false}
-                onChangeText={(t) => setEmail(t)}
+                onChangeText={(t) => (newUserEmail.email = t)}
+                defaultValue={newUserEmail.email}
               />
               <Text style={styles.title}>Password</Text>
               <TextInput
@@ -182,8 +134,8 @@ const SignUp = ({ navigation }) => {
                 returnKeyType="next"
                 secureTextEntry={true}
                 blurOnSubmit={false}
-                onChangeText={(t) => setPassword(t)}
-                defaultValue={password}
+                onChangeText={(t) => (newUserEmail.password = t)}
+                defaultValue={newUserEmail.password}
               />
               {errorText != "" ? (
                 <Text style={styles.errorTextStyle}> {errorText} </Text>
@@ -191,7 +143,7 @@ const SignUp = ({ navigation }) => {
               <Pressable
                 style={styles.btn}
                 onPress={() => {
-                  signUpOnpress();
+                  signupOnPress();
                 }}
               >
                 <Text style={styles.btnname}>LOGIN</Text>

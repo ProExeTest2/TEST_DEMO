@@ -12,7 +12,11 @@ import {
   View,
 } from "react-native";
 import React, { createRef, useState } from "react";
-//import auth from '@react-native-firebase/auth';
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
+import auth from "@react-native-firebase/auth";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -22,7 +26,10 @@ const Login = ({ navigation }) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const [confirm, setConfirm] = useState(null);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
+  GoogleSignin.configure({
+    webClientId:
+      "126485160983-5ab12s2bgrql3ihd5ldpuoqmh1vaohj6.apps.googleusercontent.com",
+  });
   // const loginOnPress = () => {
   //   if (!password) return Alert.alert('Enter Password', password);
   //   if (!email) return Alert.alert('Enter Email', email);
@@ -74,6 +81,12 @@ const Login = ({ navigation }) => {
   //       Alert.alert(err.message);
   //     });
   // };
+  async function googleSignup() {
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    const { idToken } = await GoogleSignin.signIn();
+    const googleCred = auth.GoogleAuthProvider.credential(idToken);
+    return auth().signInWithCredential(googleCred);
+  }
   return (
     <SafeAreaView style={styles.maincontainer}>
       <KeyboardAvoidingView enabled>
@@ -160,6 +173,14 @@ const Login = ({ navigation }) => {
             }}
           >
             <Text style={styles.btnname}>SignUp</Text>
+          </Pressable>
+          <Pressable
+            style={styles.btn}
+            onPress={() => {
+              googleSignup.then(() => console.log("Signed in with Google!"));
+            }}
+          >
+            <Text style={styles.btnname}>Sign Up With GOOGLE</Text>
           </Pressable>
         </View>
       </KeyboardAvoidingView>
