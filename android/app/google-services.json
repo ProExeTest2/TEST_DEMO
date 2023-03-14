@@ -1,42 +1,49 @@
 {
   "project_info": {
-    "project_number": "126485160983",
-    "project_id": "fir-redux-fe9ae",
-    "storage_bucket": "fir-redux-fe9ae.appspot.com"
+    "project_number": "552333683334",
+    "project_id": "testdemo-fb8b4",
+    "storage_bucket": "testdemo-fb8b4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:126485160983:android:e24a8d2e84d6c200fae852",
+        "mobilesdk_app_id": "1:552333683334:android:fab4c11ed3f2ecd8aa3f07",
         "android_client_info": {
           "package_name": "com.testdemo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "126485160983-foiqbjnl08l97q661ifcv780jp8r597o.apps.googleusercontent.com",
+          "client_id": "552333683334-1tt5okfb68gmk0ba9s49ema94uon9hen.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.testdemo",
-            "certificate_hash": "656355c1aa4393a99e9582d2914555e40c8d2244"
+            "certificate_hash": "8d8f33b27d8c4b9a71e5d1df4c4034ae4b059322"
           }
         },
         {
-          "client_id": "126485160983-5ab12s2bgrql3ihd5ldpuoqmh1vaohj6.apps.googleusercontent.com",
+          "client_id": "552333683334-0sa3ovvokka30qijv0mgcqig36jlg8vu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBy7ZpThT3R2CSQIfoveMaV5z-qyt4mvrg"
+          "current_key": "AIzaSyCAPFmg_CgxmORU0WYrfJcSmY3NEKHm9gU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "126485160983-5ab12s2bgrql3ihd5ldpuoqmh1vaohj6.apps.googleusercontent.com",
+              "client_id": "552333683334-0sa3ovvokka30qijv0mgcqig36jlg8vu.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "552333683334-m7a3s03f5l4342c4h3j0orppj8n22pps.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.TestDemo"
+              }
             }
           ]
         }

@@ -7,50 +7,55 @@ import {
   TouchableOpacity,
   Alert,
   Button,
+  Image,
 } from "react-native";
 
-//import auth from '@react-native-firebase/auth';
-
+import auth from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 const Home = ({ navigation }) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    // const subscriber = auth().onAuthStateChanged(user => {
-    //   console.log('user', JSON.stringify(user));
-    //   setUser(user);
-    // });
-    // return subscriber;
+    getCurrentUser();
   }, []);
+  const getCurrentUser = async () => {
+    const currentUser = await GoogleSignin.getCurrentUser();
+    console.log("CURRENT ", currentUser);
+    setUser(currentUser);
+  };
+  const logout = () => {
+    Alert.alert(
+      "Logout",
+      "Are you sure? You want to logout?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {
+            return null;
+          },
+        },
+        {
+          text: "Confirm",
+          onPress: async () => {
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut();
 
-  // const logout = () => {
-  //   Alert.alert(
-  //     'Logout',
-  //     'Are you sure? You want to logout?',
-  //     [
-  //       {
-  //         text: 'Cancel',
-  //         onPress: () => {
-  //           return null;
-  //         },
-  //       },
-  //       {
-  //         text: 'Confirm',
-  //         onPress: () => {
-  //           auth()
-  //             .signOut()
-  //             .then(() => navigation.replace('UserLogin'))
-  //             .catch(error => {
-  //               console.log(error);
-  //               if (error.code === 'auth/no-current-user')
-  //                 navigation.replace('UserLogin');
-  //               else alert(error);
-  //             });
-  //         },
-  //       },
-  //     ],
-  //     {cancelable: false},
-  //   );
-  // };
+            setUser([]);
+            // try {
+            //   await GoogleSignin.revokeAccess();
+            //   await GoogleSignin.signOut();
+
+            //   setUser([]);
+            // } catch (error) {
+            //   console.error(error);
+            // }
+            navigation.navigate("Login");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -70,13 +75,16 @@ const Home = ({ navigation }) => {
               marginVertical: 20,
             }}
           >
-            FIREBASE EMAIL LOGIN
+            FIREBASE SOCIAL LOGIN
           </Text>
-          {user ? (
-            <Text>
-              Welcome {user.displayName ? user.displayName : user.email}
-            </Text>
-          ) : null}
+          <Text>
+            Welcome {"\nEmail: "} {user?.user?.email}
+            {"\nName: "} {user?.user?.name}
+          </Text>
+          <Image
+            style={{ height: 30, width: 30 }}
+            source={{ uri: user?.user?.photo }}
+          />
           <TouchableOpacity
             style={styles.buttonStyle}
             activeOpacity={0.5}
@@ -84,24 +92,6 @@ const Home = ({ navigation }) => {
           >
             <Text style={styles.buttonTextStyle}>Logout</Text>
           </TouchableOpacity>
-          <Button
-            title="Change Email"
-            onPress={() =>
-              navigation.navigate("ReAuthenticate", { work: "Email" })
-            }
-          />
-          <Button
-            title="Change Password"
-            onPress={() =>
-              navigation.navigate("ReAuthenticate", { work: "Password" })
-            }
-          />
-          <Button
-            title="Change Phone Number"
-            onPress={() =>
-              navigation.navigate("ReAuthenticate", { work: "Phonenumber" })
-            }
-          />
         </View>
       </View>
     </SafeAreaView>
