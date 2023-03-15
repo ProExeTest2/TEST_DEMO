@@ -29,6 +29,7 @@ const Login = ({ navigation }) => {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     return auth().signInWithCredential(googleCredential);
   }
+
   return (
     <SafeAreaView style={styles.maincontainer}>
       <KeyboardAvoidingView enabled>
@@ -53,7 +54,20 @@ const Login = ({ navigation }) => {
               });
             }}
           >
-            <Text style={styles.btnname}>Sign Up With GOOGLE</Text>
+            <Text style={styles.btnname}>GOOGLE</Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.btn}
+            onPress={() => {
+              console.log("HELLO");
+              onGoogleButtonPress().then(() => {
+                console.log("Signed in with Google!");
+                navigation.replace("Home");
+              });
+            }}
+          >
+            <Text style={styles.btnname}>FACEBOOK</Text>
           </Pressable>
         </View>
       </KeyboardAvoidingView>

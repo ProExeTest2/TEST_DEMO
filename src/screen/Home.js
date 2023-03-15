@@ -41,14 +41,7 @@ const Home = ({ navigation }) => {
             await GoogleSignin.signOut();
 
             setUser([]);
-            // try {
-            //   await GoogleSignin.revokeAccess();
-            //   await GoogleSignin.signOut();
 
-            //   setUser([]);
-            // } catch (error) {
-            //   console.error(error);
-            // }
             navigation.navigate("Login");
           },
         },
@@ -78,7 +71,7 @@ const Home = ({ navigation }) => {
             FIREBASE SOCIAL LOGIN
           </Text>
           <Text>
-            Welcome {"\nEmail: "} {user?.user?.email}
+            Welcome,{user?.user?.givenName} {"\nEmail: "} {user?.user?.email}
             {"\nName: "} {user?.user?.name}
           </Text>
           <Image
