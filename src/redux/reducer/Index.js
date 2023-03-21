@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import loginsignupReducer from "./LoginReducer";
+import TodoReducer from "./TodoReducer";
 
 // const appReducer = combineReducers({
 //   loginsignup: loginsignupReducer,
@@ -9,6 +10,7 @@ import loginsignupReducer from "./LoginReducer";
 // };
 const rootReducer = combineReducers({
   loginsignup: loginsignupReducer,
+  todo: TodoReducer,
 });
 
 export default rootReducer;

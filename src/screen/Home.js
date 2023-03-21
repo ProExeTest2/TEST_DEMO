@@ -18,11 +18,13 @@ const Home = ({ navigation }) => {
   useEffect(() => {
     getCurrentUser();
   }, []);
+
   const getCurrentUser = async () => {
-    const currentUser = await GoogleSignin.getCurrentUser();
-    console.log("CURRENT ", currentUser);
+    const currentUser = auth().currentUser;
+    // console.log("CURRENT ", currentUser);
     setUser(currentUser);
   };
+
   const logout = () => {
     Alert.alert(
       "Logout",
@@ -38,11 +40,14 @@ const Home = ({ navigation }) => {
           text: "Confirm",
           onPress: async () => {
             await GoogleSignin.revokeAccess();
-            await GoogleSignin.signOut();
-
-            setUser([]);
-
-            navigation.navigate("Login");
+            await auth()
+              .signOut()
+              .then(() => {
+                setUser([]);
+                navigation.navigate("Login");
+                console.log("success ");
+              })
+              .catch((er) => console.log("ERRORs ", er));
           },
         },
       ],
@@ -52,40 +57,62 @@ const Home = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ flex: 1, padding: 16 }}>
-        <View
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
           style={{
-            flex: 1,
-            alignItems: "center",
-            justifyContent: "center",
+            color: "red",
+            fontSize: 30,
+            fontWeight: "bold",
+            marginVertical: 20,
           }}
         >
-          <Text
-            style={{
-              color: "red",
-              fontSize: 30,
-              fontWeight: "bold",
-              marginVertical: 20,
-            }}
-          >
-            FIREBASE SOCIAL LOGIN
-          </Text>
-          <Text>
-            Welcome,{user?.user?.givenName} {"\nEmail: "} {user?.user?.email}
-            {"\nName: "} {user?.user?.name}
-          </Text>
-          <Image
-            style={{ height: 30, width: 30 }}
-            source={{ uri: user?.user?.photo }}
-          />
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            activeOpacity={0.5}
-            onPress={logout}
-          >
-            <Text style={styles.buttonTextStyle}>Logout</Text>
-          </TouchableOpacity>
-        </View>
+          FIREBASE SOCIAL LOGIN
+        </Text>
+        <Text>
+          Welcome, {user?.displayName} {"\nEmail: "} {user?.email}
+        </Text>
+        <Image
+          style={{ height: 30, width: 30 }}
+          source={{ uri: user?.photoURL }}
+        />
+
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          activeOpacity={0.5}
+          onPress={() => logout()}
+        >
+          <Text style={styles.buttonTextStyle}>Logout</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Todo")}
+        >
+          <Text style={styles.buttonTextStyle}>MY TODO</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("MyFiles")}
+        >
+          <Text style={styles.buttonTextStyle}>MY Files</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("UserData")}
+        >
+          <Text style={styles.buttonTextStyle}>Realtime Database</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

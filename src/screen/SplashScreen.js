@@ -8,16 +8,16 @@ import {
   Image,
 } from "react-native";
 
-//import auth from '@react-native-firebase/auth';
-
+import auth from "@react-native-firebase/auth";
 const SplashScreen = ({ navigation }) => {
   const [animating, setAnimating] = useState(true);
 
-  useEffect(() => {
+  useEffect(async () => {
+    console.log("SPLASH", auth().currentUser);
     setTimeout(() => {
       setAnimating(false);
-      navigation.replace("Login");
-    }, 5000);
+      navigation.replace(auth().currentUser ? "Home" : "Login");
+    }, 1000);
   }, []);
 
   return (

@@ -27,6 +27,7 @@ const Login = ({ navigation }) => {
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
     const { idToken } = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
     return auth().signInWithCredential(googleCredential);
   }
 
@@ -62,8 +63,17 @@ const Login = ({ navigation }) => {
             onPress={() => {
               console.log("HELLO");
               onGoogleButtonPress().then(() => {
+                auth()
+                  .currentUser.updateProfile({
+                    displayName: "username",
+                  })
+                  .then(() => navigation.replace("Home"))
+                  .catch((err) => {
+                    Alert.alert(err);
+                    console.log("ERROR ==> ", err);
+                  });
                 console.log("Signed in with Google!");
-                navigation.replace("Home");
+                //navigation.replace("Home");
               });
             }}
           >

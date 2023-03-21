@@ -4,6 +4,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "../screen/Login";
 import SplashScreen from "../screen/SplashScreen";
 import Home from "../screen/Home";
+import AddTodo from "../screen/AddTodo";
+import Todo from "../screen/Todo";
+import MyFiles from "../screen/MyFiles";
+import UserData from "../screen/UserData";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +43,10 @@ const MainNavigation = () => {
             },
           }}
         />
+        <Stack.Screen name="Todo" component={Todo} />
+        <Stack.Screen name="AddTodo" component={AddTodo} />
+        <Stack.Screen name="MyFiles" component={MyFiles} />
+        <Stack.Screen name="UserData" component={UserData} />
         {/* <Stack.Screen name="" component={}/> */}
       </Stack.Navigator>
     </NavigationContainer>
